@@ -7,7 +7,7 @@ include Pocus::Fixtures
 RSpec.describe Pocus::Account do
   Pocus::Session.config(fixtures(:credentials))
   let(:account) { Pocus::Account.new(account_id: fixtures(:account_id)) }
-  let(:test_folder) { account.get_clientfolder(fixtures(:test_client_folder_id)).clientfolder }
+  let(:test_folder) { account.clientfolders.find(fixtures(:test_client_folder_id)) }
   let(:folder_attributes) do
     {
       name: 'iContact Corporation',
@@ -40,12 +40,12 @@ RSpec.describe Pocus::Account do
     end
   end
 
-  describe '#get_clientfolder' do
+  describe '#clientfolders.find' do
     it 'fetches a single folder identified by id' do
-      response = account.get_clientfolder(fixtures(:test_client_folder_id))
-      expect(response.warnings).to be_nil
+      response = account.clientfolders.find(fixtures(:test_client_folder_id))
+      expect(response.warnings).to be_empty
 
-      folder = response.clientfolder
+      folder = response
       expect(folder).to be_kind_of(Pocus::ClientFolder)
       expect(folder.client_folder_id).to match(/^\d+$/)
       expect(folder.parent).to eq account
@@ -54,7 +54,7 @@ RSpec.describe Pocus::Account do
 
     it 'handles errors' do
       expect do
-        account.get_clientfolder(0).inspect
+        account.clientfolders.find(0).inspect
       end
       .to raise_error(/Unexpected response/)
     end

@@ -7,7 +7,7 @@ include Pocus::Fixtures
 RSpec.describe Pocus::ClientFolder do
   Pocus::Session.config(fixtures(:credentials))
   let(:account) { Pocus::Account.new(account_id: fixtures(:account_id)) }
-  let(:test_folder) { account.get_clientfolder(fixtures(:test_client_folder_id)).clientfolder }
+  let(:test_folder) { account.clientfolders.find(fixtures(:test_client_folder_id)) }
   let(:folder_attributes) do
     {
       name: 'iContact Corporation',

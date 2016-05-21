@@ -13,6 +13,10 @@ module Pocus
     def all
       owner.get_multiple(path, klass)
     end
+
+    def find(id)
+      owner.get("#{path}/#{id}", klass)
+    end
   end
 
   class Resource
@@ -63,8 +67,9 @@ module Pocus
     def get(request_path, klass)
       response = session.send_request('GET', path+request_path)
       data = response.fetch(klass.tag)
-      response[klass.tag] = klass.new(data.merge(parent: self))
-      Response.new response
+      resource = klass.new(data.merge(parent: self))
+      resource.assign_attributes(errors: response['errors'] || [], warnings: response['warnings'] || [])
+      resource
     end
 
     def get_multiple(request_path, klass, filters = {})

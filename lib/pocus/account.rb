@@ -5,9 +5,5 @@ module Pocus
     def path
       "/a/#{account_id}"
     end
-
-    def get_clientfolder(client_folder_id)
-      get("/c/#{client_folder_id}", ClientFolder)
-    end
   end
 end
