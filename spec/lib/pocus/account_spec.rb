@@ -28,10 +28,9 @@ RSpec.describe Pocus::Account do
   describe '#reload' do
     it 'fetches account details' do
       response = account.reload
+      expect(response.errors).to be_nil
       expect(response.warnings).to be_nil
-
-      expect(response.account).to be_kind_of(Pocus::Account)
-      expect(response.account.account_id).to match(/^\d+$/)
+      expect(response).to eq(account)
     end
   end
 
@@ -48,6 +47,7 @@ RSpec.describe Pocus::Account do
     end
 
     it 'handles errors' do
+      session.logger = Logger.new(STDOUT)
       expect do
         account.get_clientfolder(0).inspect
       end

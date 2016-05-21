@@ -41,14 +41,6 @@ RSpec.describe Pocus::ClientFolder do
     }
   end
 
-  describe '#get' do
-    it 'fetches details of given folder' do
-      response = test_folder.reload
-      expect(response.warnings).to be_nil
-      expect(response.clientfolder).to be_kind_of(Pocus::ClientFolder)
-    end
-  end
-
   describe '#post' do
     it 'updates a client folder' do
       new_name = rand.to_s

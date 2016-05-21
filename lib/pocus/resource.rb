@@ -69,8 +69,8 @@ module Pocus
     def reload
       response = session.send_request('GET', path)
       assign_attributes(response.fetch(self.class.tag))
-      response[self.class.tag] = self
-      Response.new(response)
+      assign_attributes(errors: response['errors'], warnings: response['warnings'])
+      self
     end
 
     def session
