@@ -51,10 +51,10 @@ module Pocus
         klass.new(data.merge(parent: self))
     end
 
-    def post(request_path = '', request_tag = self.class.tag, resource = self)
-      response = session.send_request('POST', path+request_path, resource.fields)
-      assign_attributes(response.fetch(request_tag))
-      response[request_tag] = self
+    def post
+      response = session.send_request('POST', path, fields)
+      assign_attributes(response.fetch(self.class.tag))
+      response[self.class.tag] = self
       Response.new(response)
     end
 
