@@ -55,6 +55,11 @@ module Pocus
       assign_attributes(response.fetch(self.class.tag))
       assign_attributes(errors: response['errors'] || [], warnings: response['warnings'] || [])
       self
+    rescue UnexpectedHttpResponse => e
+      response = JSON.parse(e.response.body)
+      response['errors'] || response['warnings'] or raise
+      assign_attributes(errors: response['errors'] || [], warnings: response['warnings'] || [])
+      self
     end
 
     def post_multiple(request_path, resources)

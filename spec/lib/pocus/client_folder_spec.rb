@@ -49,6 +49,12 @@ RSpec.describe Pocus::ClientFolder do
       expect(response.warnings).to be_empty
       expect(response.business_name).to eq new_name
     end
+
+    it 'handles errors' do
+      test_folder.from_email = 'invalid'
+      test_folder.post
+      expect(test_folder.errors.first).to match(/fromEmail .* not valid/)
+    end
   end
 
   describe '#get_lists' do
@@ -63,6 +69,7 @@ RSpec.describe Pocus::ClientFolder do
 
   describe '#post_contacts' do
     it 'creates multiple contacts' do
+      Pocus::Session.instance.logger = Logger.new(STDOUT)
       contacts = (1..3).map do |i|
         Pocus::Contact.new(contact_attributes.merge(email: "#{i}@dummy.com"))
       end
