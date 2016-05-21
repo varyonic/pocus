@@ -5,6 +5,10 @@ module Pocus
     attr_reader :path
     attr_accessor :parent
 
+    def self.tag
+      name.split('::').last.downcase
+    end
+
     def initialize(attributes)
       assign_attributes(attributes)
     end
@@ -23,7 +27,7 @@ module Pocus
       end
     end
 
-    def get(request_path = '', request_tag = tag, klass = self.class, filters = {})
+    def get(request_path = '', request_tag = self.class.tag, klass = self.class, filters = {})
       response = session.send_request('GET', path+request_path, camelize_filters(filters))
       fail("Expected #{tag}, got #{response.inspect}") unless response[request_tag]
       response[request_tag] = parse_data(response[request_tag], klass)
@@ -40,7 +44,7 @@ module Pocus
         klass.new(data.merge(parent: self))
     end
 
-    def post(request_path = '', request_tag = tag, resource = self)
+    def post(request_path = '', request_tag = self.class.tag, resource = self)
       response = session.send_request('POST', path+request_path, resource.fields)
       fail("Expected #{request_tag}, got #{response.inspect}") unless response[request_tag]
       assign_attributes(response[request_tag])
@@ -58,10 +62,6 @@ module Pocus
 
     def session
       parent.session
-    end
-
-    def tag
-      self.class.name.split('::').last.downcase
     end
 
     protected
