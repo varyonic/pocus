@@ -43,7 +43,7 @@ RSpec.describe Pocus::ClientFolder do
 
   describe '#get' do
     it 'fetches details of given folder' do
-      response = test_folder.get
+      response = test_folder.reload
       expect(response.warnings).to be_nil
       expect(response.clientfolder).to be_kind_of(Pocus::ClientFolder)
     end

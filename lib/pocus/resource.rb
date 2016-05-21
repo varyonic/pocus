@@ -31,24 +31,23 @@ module Pocus
       end
     end
 
-    def get(request_path = '', request_tag = self.class.tag, klass = self.class, filters = {})
-      response = session.send_request('GET', path+request_path, camelize_filters(filters))
-      response[request_tag] = parse_data(response.fetch(request_tag), klass)
+    # Fetch and instantiate a single resource from a path.
+    def get(request_path, klass)
+      response = session.send_request('GET', path+request_path)
+      data = response.fetch(klass.tag)
+      response[klass.tag] = klass.new(data.merge(parent: self))
       Response.new response
     end
 
     def get_multiple(request_path, klass, filters = {})
-      get(request_path, klass.tag_multiple, klass, filters)
+      response = session.send_request('GET', path+request_path, camelize_filters(filters))
+      data = response.fetch(klass.tag_multiple)
+      response[klass.tag_multiple] = data.map { |fields| klass.new(fields.merge(parent: self)) }
+      Response.new response
     end
 
     def logger
       session.logger
-    end
-
-    def parse_data(data, klass = self.class)
-      data.kind_of?(Array) ?
-        data.map { |fields| klass.new(fields.merge(parent: self)) } :
-        klass.new(data.merge(parent: self))
     end
 
     def post
@@ -63,6 +62,14 @@ module Pocus
       data = response.fetch(request_tag)
       data.each_with_index { |fields, idx| resources[idx].assign_attributes(fields) }
       response[request_tag] = resources
+      Response.new(response)
+    end
+
+    # Fetch and update this resource from a path.
+    def reload
+      response = session.send_request('GET', path)
+      assign_attributes(response.fetch(self.class.tag))
+      response[self.class.tag] = self
       Response.new(response)
     end
 

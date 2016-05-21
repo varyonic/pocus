@@ -7,7 +7,7 @@ module Pocus
     end
 
     def get_clientfolder(client_folder_id)
-      get("/c/#{client_folder_id}", 'clientfolder', ClientFolder)
+      get("/c/#{client_folder_id}", ClientFolder)
     end
 
     def get_clientfolders(filters = {})

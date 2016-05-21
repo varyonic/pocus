@@ -25,9 +25,9 @@ RSpec.describe Pocus::Account do
     }
   end
 
-  describe '#get' do
+  describe '#reload' do
     it 'fetches account details' do
-      response = account.get
+      response = account.reload
       expect(response.warnings).to be_nil
 
       expect(response.account).to be_kind_of(Pocus::Account)
