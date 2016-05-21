@@ -26,6 +26,14 @@ module Pocus
       @logger = logger
     end
 
+    def self.config(options = {})
+      @config = options
+    end
+
+    def self.instance
+      @instance ||= new(@config)
+    end
+
     def send_request(method, path, fields = {})
       response = send_logged_request(URI(BASE_URL+path), method, request_data(fields))
       fail UnexpectedHttpResponse, response unless response.is_a? Net::HTTPSuccess

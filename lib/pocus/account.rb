@@ -1,7 +1,5 @@
 module Pocus
   class Account < Resource
-    attr_accessor :session
-
     def path
       "/a/#{account_id}"
     end

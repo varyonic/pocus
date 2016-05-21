@@ -5,9 +5,8 @@ require "spec_helper"
 include Pocus::Fixtures
 
 RSpec.describe Pocus::ClientFolder do
-  # session.logger = Logger.new(STDOUT)
-  let(:session) { Pocus::Session.new(fixtures(:credentials)) }
-  let(:account) { Pocus::Account.new(session: session, account_id: fixtures(:account_id)) }
+  Pocus::Session.config(fixtures(:credentials))
+  let(:account) { Pocus::Account.new(account_id: fixtures(:account_id)) }
   let(:test_folder) { account.get_clientfolder(fixtures(:test_client_folder_id)).clientfolder }
   let(:folder_attributes) do
     {

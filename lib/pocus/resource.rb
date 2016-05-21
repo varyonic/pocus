@@ -75,7 +75,7 @@ module Pocus
     end
 
     def session
-      parent.session
+      Session.instance
     end
 
     protected
