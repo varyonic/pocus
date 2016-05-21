@@ -27,7 +27,7 @@
 
 # Features
 
-# Screencasts
+Unofficial Ruby API client for [iContact API](See https://www.icontact.com/developerportal), fka. Vocus
 
 # Requirements
 
