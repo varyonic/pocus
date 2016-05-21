@@ -26,7 +26,7 @@ RSpec.describe Pocus::Account do
 
   describe '.associations' do
     it 'stores configuration options' do
-      expect(Pocus::Account.associations).to eq Hash[clientfolders: { path: 'c', class: 'ClientFolder'} ]
+      expect(Pocus::Account.associations).to eq Hash[clientfolders: { path: '/c', class: 'ClientFolder'} ]
       expect(Pocus::Account.new({}).clientfolders).to be_kind_of(Pocus::Association)
     end
   end
@@ -60,9 +60,9 @@ RSpec.describe Pocus::Account do
     end
   end
 
-  describe '#get_clientfolders' do
+  describe '#clientfolders.all' do
     it 'fetches all folder details' do
-      response = account.get_clientfolders
+      response = account.clientfolders.all
       expect(response.warnings).to be_nil
       expect(response.clientfolders.count).to be >= 1
 
