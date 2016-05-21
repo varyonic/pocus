@@ -27,8 +27,8 @@ RSpec.describe Pocus::Account do
   describe '#reload' do
     it 'fetches account details' do
       response = account.reload
-      expect(response.errors).to be_nil
-      expect(response.warnings).to be_nil
+      expect(response.errors).to be_empty
+      expect(response.warnings).to be_empty
       expect(response).to eq(account)
     end
   end
