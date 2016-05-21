@@ -46,8 +46,8 @@ RSpec.describe Pocus::ClientFolder do
       test_folder.business_name = new_name
 
       response = test_folder.post
-      expect(response.warnings).to be_nil
-      expect(response.clientfolder.business_name).to eq new_name
+      expect(response.warnings).to be_empty
+      expect(response.business_name).to eq new_name
     end
   end
 
