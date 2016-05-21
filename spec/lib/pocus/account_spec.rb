@@ -24,6 +24,13 @@ RSpec.describe Pocus::Account do
     }
   end
 
+  describe '.associations' do
+    it 'stores configuration options' do
+      expect(Pocus::Account.associations).to eq Hash[clientfolders: { path: 'c', class: 'ClientFolder'} ]
+      expect(Pocus::Account.new({}).clientfolders).to be_kind_of(Pocus::Association)
+    end
+  end
+
   describe '#reload' do
     it 'fetches account details' do
       response = account.reload

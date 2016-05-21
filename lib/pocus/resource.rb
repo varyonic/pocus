@@ -1,9 +1,34 @@
 module Pocus
   class Response < OpenStruct; end
 
+  class Association < Array
+    attr_reader :owner, :path, :klass
+
+    def initialize(owner, name, options)
+      @owner = owner
+      @path = options[:path] || "/#{name}"
+      @klass = Object.const_get("Pocus::".concat(options[:class] || camelize(name)))
+    end
+
+    def all
+      owner.get_multiple(path, klass)
+    end
+  end
+
   class Resource
     attr_reader :path
     attr_accessor :parent
+
+    class << self
+      def associations
+        @associations ||= {}
+      end
+
+      def has_many(name, options = {})
+        attr_accessor(name)
+        associations[name] = options
+      end
+    end
 
     def self.tag
       name.split('::').last.downcase
@@ -15,6 +40,9 @@ module Pocus
 
     def initialize(attributes)
       assign_attributes(attributes)
+      self.class.associations.each_pair do |name, options|
+        send("#{name}=", Association.new(self, name, options))
+      end
     end
 
     def assign_attributes(attributes)
