@@ -46,7 +46,6 @@ RSpec.describe Pocus::Account do
     end
 
     it 'handles errors' do
-      session.logger = Logger.new(STDOUT)
       expect do
         account.get_clientfolder(0).inspect
       end
