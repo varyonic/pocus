@@ -27,7 +27,9 @@ module Pocus
     end
 
     def send_request(method, path, fields = {})
-      send_uri_request(URI(BASE_URL+path), method, request_data(fields))
+      response = send_logged_request(URI(BASE_URL+path), method, request_data(fields))
+      fail UnexpectedHttpResponse, response unless response.is_a? Net::HTTPSuccess
+      JSON.parse(response.body)
     end
 
     protected
@@ -47,16 +49,20 @@ module Pocus
       fields.to_json unless fields.empty?
     end
 
-    def send_uri_request(uri, method, data)
+    def send_logged_request(uri, method, data)
+      log_request_response(uri, method, data) do |u, m, d|
+        https(uri).send_request(m, u.to_s, d, headers.merge(credentials))
+      end
+    end
+
+    def log_request_response(uri, method, data)
       logger.info "request = #{uri.to_s}#{data ? '?'+data : ''}"
       response = nil
       tms = Benchmark.measure do
-        response = https(uri).send_request(method, uri.to_s, data, headers.merge(credentials))
+        response = yield uri, method, data
       end
       logger.info("API response (#{tms.real}s): #{response.inspect} #{response.body}")
-
-      fail UnexpectedHttpResponse, response unless response.is_a? Net::HTTPSuccess
-      JSON.parse(response.body)
+      response
     end
   end
 end
