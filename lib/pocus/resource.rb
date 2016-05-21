@@ -29,8 +29,7 @@ module Pocus
 
     def get(request_path = '', request_tag = self.class.tag, klass = self.class, filters = {})
       response = session.send_request('GET', path+request_path, camelize_filters(filters))
-      fail("Expected #{tag}, got #{response.inspect}") unless response[request_tag]
-      response[request_tag] = parse_data(response[request_tag], klass)
+      response[request_tag] = parse_data(response.fetch(request_tag), klass)
       Response.new response
     end
 
@@ -46,15 +45,14 @@ module Pocus
 
     def post(request_path = '', request_tag = self.class.tag, resource = self)
       response = session.send_request('POST', path+request_path, resource.fields)
-      fail("Expected #{request_tag}, got #{response.inspect}") unless response[request_tag]
-      assign_attributes(response[request_tag])
+      assign_attributes(response.fetch(request_tag))
       response[request_tag] = self
       Response.new(response)
     end
 
     def post_multiple(request_path, request_tag, resources)
       response = session.send_request('POST', path+request_path, resources.map(&:fields))
-      data = response[request_tag] || fail("Expected #{tag}, got #{response.inspect}")
+      data = response.fetch(request_tag)
       data.each_with_index { |fields, idx| resources[idx].assign_attributes(fields) }
       response[request_tag] = resources
       Response.new(response)
