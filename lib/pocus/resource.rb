@@ -9,6 +9,10 @@ module Pocus
       name.split('::').last.downcase
     end
 
+    def self.tag_multiple
+      tag.concat('s')
+    end
+
     def initialize(attributes)
       assign_attributes(attributes)
     end
@@ -31,6 +35,10 @@ module Pocus
       response = session.send_request('GET', path+request_path, camelize_filters(filters))
       response[request_tag] = parse_data(response.fetch(request_tag), klass)
       Response.new response
+    end
+
+    def get_multiple(request_path, klass, filters = {})
+      get(request_path, klass.tag_multiple, klass, filters)
     end
 
     def logger

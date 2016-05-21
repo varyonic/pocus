@@ -6,7 +6,7 @@ module Pocus
     end
 
     def get_lists
-      get('/lists', 'lists', List)
+      get_multiple('/lists', List)
     end
 
     def post_contacts(contacts)

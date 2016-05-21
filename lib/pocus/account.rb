@@ -12,7 +12,7 @@ module Pocus
 
     def get_clientfolders(filters = {})
       logger.info("get_clientfolders(#{filters.inspect})")
-      get('/c', 'clientfolders', ClientFolder, filters)
+      get_multiple('/c', ClientFolder, filters)
     end
   end
 end
