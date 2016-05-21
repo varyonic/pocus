@@ -10,7 +10,7 @@ module Pocus
     end
 
     def post_contacts(contacts)
-      post_multiple('/contacts', 'contacts', contacts)
+      post_multiple('/contacts', contacts)
     end
   end
 
