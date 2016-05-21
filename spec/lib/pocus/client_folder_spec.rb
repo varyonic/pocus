@@ -79,5 +79,18 @@ RSpec.describe Pocus::ClientFolder do
       expect(contact).to be_kind_of(Pocus::Contact)
       expect(contact.contact_id).to match(/^\d+$/)
     end
+
+    it 'handles errors' do
+      Pocus::Session.instance.logger = Logger.new(STDOUT)
+      contacts = [1,'',2].map do |i|
+        Pocus::Contact.new(contact_attributes.merge(email: "#{i}@dummy.com"))
+      end
+      response = test_folder.post_contacts(contacts)
+      expect(response.warnings.count).to be > 1
+      contact = response.contacts.first
+      expect(contact).to be_kind_of(Pocus::Contact)
+      expect(contact.contact_id).to match(/^\d+$/)
+    end
+
   end
 end
