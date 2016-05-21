@@ -46,6 +46,13 @@ RSpec.describe Pocus::Account do
       expect(folder.parent).to eq account
       expect(folder.session).to eq account.session
     end
+
+    it 'handles errors' do
+      expect do
+        account.get_clientfolder(0).inspect
+      end
+      .to raise_error(/Unexpected response/)
+    end
   end
 
   describe '#get_clientfolders' do

@@ -4,6 +4,14 @@ require 'logger'
 
 # See https://www.icontact.com/developerportal/documentation
 module Pocus
+  class UnexpectedHttpResponse < RuntimeError
+    attr_reader :response
+    def initialize(response)
+      @response = response
+      super "Unexpected response [#{response.code}] #{response.body}"
+    end
+  end
+
   class Session
     BASE_URL = 'https://api.invoc.us/icp'
     attr_reader :credentials
@@ -47,7 +55,7 @@ module Pocus
       end
       logger.info("API response (#{tms.real}s): #{response.inspect} #{response.body}")
 
-      fail "Unexpected response: #{response.inspect}, #{response.body}" unless response.code == '200'
+      fail UnexpectedHttpResponse, response unless response.is_a? Net::HTTPSuccess
       JSON.parse(response.body)
     end
   end
