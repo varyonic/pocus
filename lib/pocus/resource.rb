@@ -21,14 +21,14 @@ module Pocus
         attr_accessor(name)
         associations[name] = options
       end
-    end
 
-    def self.tag
-      name.split('::').last.downcase
-    end
+      def tag
+        name.split('::').last.downcase
+      end
 
-    def self.tag_multiple
-      tag.concat('s')
+      def tag_multiple
+        tag.concat('s')
+      end
     end
 
     def initialize(attributes)
