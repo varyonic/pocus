@@ -84,11 +84,9 @@ module Pocus
       self
     end
 
-    def post_multiple(request_path, resources)
-      request_tag = resources.first.class.tag_multiple
-      response = session.send_request('POST', path+request_path, resources.map(&:fields))
-      data = response.fetch(request_tag)
-      data.each_with_index { |fields, idx| resources[idx].assign_attributes(fields) }
+    def post_multiple(request_path, klass, fields_multiple)
+      response = session.send_request('POST', path+request_path, fields_multiple)
+      resources = response.fetch(klass.tag_multiple).map { |fields| klass.new(fields) }
       ResponseArray.new(resources, response['errors'], response['warnings'])
     end
 

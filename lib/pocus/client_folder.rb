@@ -11,8 +11,8 @@ module Pocus
       get_multiple('/lists', List)
     end
 
-    def post_contacts(contacts)
-      post_multiple('/contacts', contacts)
+    def post_contacts(fields_multiple)
+      post_multiple('/contacts', Contact, fields_multiple)
     end
   end
 

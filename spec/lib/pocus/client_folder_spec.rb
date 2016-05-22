@@ -88,10 +88,10 @@ RSpec.describe Pocus::ClientFolder do
 
   describe '#post_contacts' do
     it 'creates multiple contacts' do
-      contacts = (1..3).map do |i|
-        Pocus::Contact.new(contact_attributes.merge(email: "#{i}@dummy.com"))
+      fields_multiple = (1..3).map do |i|
+        contact_attributes.dup.merge(email: "#{i}@dummy.com")
       end
-      response = test_folder.post_contacts(contacts)
+      response = test_folder.post_contacts(fields_multiple)
       expect(response.warnings).to be_empty
       contact = response.last
       expect(contact).to be_kind_of(Pocus::Contact)
@@ -99,10 +99,10 @@ RSpec.describe Pocus::ClientFolder do
     end
 
     it 'handles errors' do
-      contacts = [1,'',2].map do |i|
-        Pocus::Contact.new(contact_attributes.merge(email: "#{i}@dummy.com"))
+      fields_multiple = [1,'',2].map do |i|
+        contact_attributes.dup.merge(email: "#{i}@dummy.com")
       end
-      response = test_folder.post_contacts(contacts)
+      response = test_folder.post_contacts(fields_multiple)
       expect(response.warnings.count).to be > 1
       contact = response.first
       expect(contact).to be_kind_of(Pocus::Contact)
