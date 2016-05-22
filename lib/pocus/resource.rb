@@ -24,6 +24,10 @@ module Pocus
     def find(id)
       owner.get("#{path}/#{id}", klass)
     end
+
+    def where(filters)
+      owner.get_multiple(path, klass, filters)
+    end
   end
 
   class Resource
