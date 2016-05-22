@@ -6,5 +6,6 @@ module Pocus
 
     has_many :lists, class: 'List'
     has_many :contacts, class: 'Contact'
+    has_many :users, class: 'User'
   end
 end
