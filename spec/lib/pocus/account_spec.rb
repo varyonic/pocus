@@ -64,9 +64,9 @@ RSpec.describe Pocus::Account do
     it 'fetches all folder details' do
       response = account.clientfolders.all
       expect(response.warnings).to be_empty
-      expect(response.clientfolders.count).to be >= 1
+      expect(response.count).to be >= 1
 
-      folder = response.clientfolders.last
+      folder = response.last
       expect(folder).to be_kind_of(Pocus::ClientFolder)
       expect(folder.client_folder_id).to match(/^\d+$/)
     end
