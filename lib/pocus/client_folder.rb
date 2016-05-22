@@ -7,6 +7,4 @@ module Pocus
     has_many :lists, class: 'List'
     has_many :contacts, class: 'Contact'
   end
-
-  class Contact < Resource; end
 end
