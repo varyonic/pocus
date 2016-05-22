@@ -63,7 +63,7 @@ RSpec.describe Pocus::Account do
   describe '#clientfolders.all' do
     it 'fetches all folder details' do
       response = account.clientfolders.all
-      expect(response.warnings).to be_nil
+      expect(response.warnings).to be_empty
       expect(response.clientfolders.count).to be >= 1
 
       folder = response.clientfolders.last

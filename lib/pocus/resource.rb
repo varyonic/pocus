@@ -1,5 +1,12 @@
 module Pocus
-  class Response < OpenStruct; end
+  class ResponseArray < Array
+    attr_reader :errors, :warnings
+
+    def initialize(resources, errors, warnings)
+      @errors, @warnings = (errors || []), (warnings || [])
+      super resources
+    end
+  end
 
   class Association < Array
     attr_reader :owner, :path, :klass
@@ -75,8 +82,8 @@ module Pocus
     def get_multiple(request_path, klass, filters = {})
       response = session.send_request('GET', path+request_path, camelize_filters(filters))
       data = response.fetch(klass.tag_multiple)
-      response[klass.tag_multiple] = data.map { |fields| klass.new(fields.merge(parent: self)) }
-      Response.new response
+      resources = data.map { |fields| klass.new(fields.merge(parent: self)) }
+      ResponseArray.new(resources, response['errors'], response['warnings'])
     end
 
     def logger
@@ -100,8 +107,7 @@ module Pocus
       response = session.send_request('POST', path+request_path, resources.map(&:fields))
       data = response.fetch(request_tag)
       data.each_with_index { |fields, idx| resources[idx].assign_attributes(fields) }
-      response[request_tag] = resources
-      Response.new(response)
+      ResponseArray.new(resources, response['errors'], response['warnings'])
     end
 
     # Fetch and update this resource from a path.

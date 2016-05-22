@@ -61,7 +61,7 @@ RSpec.describe Pocus::ClientFolder do
     it 'fetches list details' do
       response = test_folder.get_lists
 
-      list = response.lists.sample
+      list = response.sample
       expect(list).to be_kind_of(Pocus::List)
       expect(list.list_id).to match(/^\d+$/)
     end
@@ -74,8 +74,8 @@ RSpec.describe Pocus::ClientFolder do
         Pocus::Contact.new(contact_attributes.merge(email: "#{i}@dummy.com"))
       end
       response = test_folder.post_contacts(contacts)
-      expect(response.warnings).to be_nil
-      contact = response.contacts.last
+      expect(response.warnings).to be_empty
+      contact = response.last
       expect(contact).to be_kind_of(Pocus::Contact)
       expect(contact.contact_id).to match(/^\d+$/)
     end
@@ -87,7 +87,7 @@ RSpec.describe Pocus::ClientFolder do
       end
       response = test_folder.post_contacts(contacts)
       expect(response.warnings.count).to be > 1
-      contact = response.contacts.first
+      contact = response.first
       expect(contact).to be_kind_of(Pocus::Contact)
       expect(contact.contact_id).to match(/^\d+$/)
     end
