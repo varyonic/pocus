@@ -70,12 +70,16 @@ module Pocus
       ResponseArray.new(resources, response['errors'], response['warnings'])
     end
 
+    def id
+      send self.class.primary_key
+    end
+
     def logger
       session.logger
     end
 
     def path
-      "#{parent ? parent.path : '/'}/#{self.class.path}/#{send self.class.primary_key}"
+      "#{parent ? parent.path : '/'}/#{self.class.path}/#{id}"
     end
 
     def post

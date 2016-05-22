@@ -9,5 +9,4 @@ module Pocus
   end
 
   class Contact < Resource; end
-  class List < Resource; end
 end
