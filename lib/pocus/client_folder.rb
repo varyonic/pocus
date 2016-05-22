@@ -7,10 +7,6 @@ module Pocus
     def path
       parent.path+"/c/#{@client_folder_id}"
     end
-
-    def get_lists
-      get_multiple('/lists', List)
-    end
   end
 
   class Contact < Resource; end

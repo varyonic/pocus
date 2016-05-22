@@ -58,9 +58,9 @@ RSpec.describe Pocus::ClientFolder do
     end
   end
 
-  describe '#get_lists' do
+  describe 'lists.all' do
     it 'fetches list details' do
-      response = test_folder.get_lists
+      response = test_folder.lists.all
 
       list = response.sample
       expect(list).to be_kind_of(Pocus::List)
