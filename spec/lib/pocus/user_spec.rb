@@ -19,4 +19,11 @@ RSpec.describe Pocus::User do
       expect(user.id).to be_a(Integer)
     end
   end
+
+  describe '#permissions.all' do
+    it 'fetches permissions' do
+      permissions = test_folder.users.all.sample.permissions.all
+      expect(permissions.first).to be_kind_of(Pocus::Permission)
+    end
+  end
 end
