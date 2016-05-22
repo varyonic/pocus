@@ -1,9 +1,8 @@
 module Pocus
   class Account < Resource
-    has_many :clientfolders, path: '/c', class: 'ClientFolder'
+    self.path = :a
+    self.primary_key = :account_id
 
-    def path
-      "/a/#{account_id}"
-    end
+    has_many :clientfolders, path: '/c', class: 'ClientFolder'
   end
 end

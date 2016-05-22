@@ -13,6 +13,8 @@ module Pocus
     attr_accessor :parent
 
     class << self
+      attr_accessor :path, :primary_key
+
       def associations
         @associations ||= {}
       end
@@ -70,6 +72,10 @@ module Pocus
 
     def logger
       session.logger
+    end
+
+    def path
+      "#{parent ? parent.path : '/'}/#{self.class.path}/#{send self.class.primary_key}"
     end
 
     def post
