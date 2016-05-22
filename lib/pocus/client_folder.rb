@@ -2,6 +2,7 @@ module Pocus
   # See https://www.icontact.com/developerportal/documentation/client-folders
   class ClientFolder < Resource
     has_many :lists, class: 'List'
+    has_many :contacts, class: 'Contact'
 
     def path
       parent.path+"/c/#{@client_folder_id}"
@@ -9,10 +10,6 @@ module Pocus
 
     def get_lists
       get_multiple('/lists', List)
-    end
-
-    def post_contacts(fields_multiple)
-      post_multiple('/contacts', Contact, fields_multiple)
     end
   end
 

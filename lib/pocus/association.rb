@@ -12,6 +12,10 @@ module Pocus
       owner.get_multiple(path, klass)
     end
 
+    def create(fields_multiple)
+      owner.post_multiple(path, klass, fields_multiple)
+    end
+
     def find(id)
       owner.get("#{path}/#{id}", klass)
     end
