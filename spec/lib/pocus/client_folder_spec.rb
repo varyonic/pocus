@@ -40,6 +40,7 @@ RSpec.describe Pocus::ClientFolder do
       business: '8668039462'
     }
   end
+  let(:test_list) { test_folder.lists.where(name: 'My First List').first }
 
   describe '#post' do
     it 'updates a client folder' do
@@ -107,6 +108,24 @@ RSpec.describe Pocus::ClientFolder do
       contact = response.first
       expect(contact).to be_kind_of(Pocus::Contact)
       expect(contact.contact_id).to match(/^\d+$/)
+    end
+  end
+
+  describe '#subscriptions.create' do
+    it 'creates multiple subscriptions' do
+      fields_multiple = (1..3).map do |i|
+        contact_attributes.dup.merge(email: "#{rand(10**6)}@dummy.com")
+      end
+      contacts = test_folder.contacts.create(fields_multiple)
+      subscription_fields = contacts.map do |contact|
+        Hash[contact_id: contact.id, list_id: test_list.id, status: :normal]
+      end
+      subscriptions = test_folder.subscriptions.create(subscription_fields)
+      expect(subscriptions.size).to eq 3
+
+      subscription = subscriptions.first
+      expect(subscription).to be_a(Pocus::Subscription)
+      expect(subscription.subscription_id).to match(/^\d+_\d+$/)
     end
   end
 

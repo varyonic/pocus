@@ -95,7 +95,8 @@ module Pocus
     end
 
     def post_multiple(request_path, klass, fields_multiple)
-      response = session.send_request('POST', path+request_path, fields_multiple)
+      data = fields_multiple.map { |fields| camelize_fields(fields) }
+      response = session.send_request('POST', path+request_path, data)
       resources = response.fetch(klass.tag_multiple).map { |fields| klass.new(fields) }
       ResponseArray.new(resources, response['errors'], response['warnings'])
     end
@@ -124,6 +125,13 @@ module Pocus
       parts = str.to_s.split('_')
       first = parts.shift
       first + parts.each {|s| s.capitalize! }.join
+    end
+
+    def camelize_fields(hash)
+      hash.reduce({}) do |h, e|
+        h[camelize e[0]] = e[1]
+        h
+      end
     end
 
     def camelize_filters(hash)
