@@ -118,6 +118,20 @@ RSpec.describe Pocus::ClientFolder do
     end
   end
 
+  describe '#custom_fields.create' do
+    it 'creates custom fields' do
+      birthdate_fields = {
+        custom_field_id: :birthdate,
+        field_type: :date,
+        display_to_user: 1,
+      }
+      custom_field = test_folder.customfields.create(birthdate_fields)
+      expect(custom_field).to be_a(Pocus::CustomField)
+      expect(custom_field.errors).to be_empty
+      expect(custom_field.warnings).to be_empty
+    end
+  end
+
   describe '#subscriptions.create' do
     it 'creates multiple subscriptions' do
       fields_multiple = (1..3).map do |i|
