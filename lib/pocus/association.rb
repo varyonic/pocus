@@ -13,7 +13,9 @@ module Pocus
     end
 
     def create(fields_multiple)
-      owner.post_multiple(path, klass, fields_multiple)
+      fields_multiple.kind_of?(Array) ?
+        owner.post_multiple(path, klass, fields_multiple) :
+        owner.post_multiple(path, klass, [fields_multiple]).first
     end
 
     def find(id)
