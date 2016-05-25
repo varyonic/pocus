@@ -24,22 +24,6 @@ RSpec.describe Pocus::ClientFolder do
       phone: '8668039462',
     }
   end
-  let(:contact_attributes) do
-    {
-      prefix: 'Miss',
-      first_name: 'Mary',
-      last_name: 'Smith',
-      suffix: 'III',
-      street: '2635 Meridian Parkway',
-      street2: 'Suite 100',
-      city: 'Durham',
-      state: 'NC',
-      postal_code: '27713',
-      phone: '8668039462',
-      fax: '8668039462',
-      business: '8668039462'
-    }
-  end
   let(:test_list) { test_folder.lists.where(name: 'My First List').first }
 
   describe '#post' do
@@ -56,105 +40,6 @@ RSpec.describe Pocus::ClientFolder do
       test_folder.from_email = 'invalid'
       test_folder.post
       expect(test_folder.errors.first).to match(/fromEmail .* not valid/)
-    end
-  end
-
-  describe 'lists.all' do
-    it 'fetches list details' do
-      response = test_folder.lists.all
-
-      list = response.sample
-      expect(list).to be_kind_of(Pocus::List)
-      expect(list.list_id).to match(/^\d+$/)
-    end
-  end
-
-  describe 'lists.where' do
-    it 'fetches filtered lists' do
-      response = test_folder.lists.where(name: 'My First List')
-      expect(response.count).to eq 1
-
-      list = response.first
-      expect(list).to be_kind_of(Pocus::List)
-      expect(list.list_id).to match(/^\d+$/)
-    end
-
-    it 'handles errors' do
-      Pocus::Session.instance.logger = Logger.new(STDOUT)
-      response = test_folder.lists.where(invalid_key: 'My First List')
-      pending 'API bug, does not always include warning!'
-      expect(response.warnings.count).to be > 1
-    end
-  end
-
-  describe '#contacts.create' do
-    it 'creates a single contact' do
-      contact = test_folder.contacts.create(email: 'single@dummy.com')
-      expect(contact).to be_kind_of(Pocus::Contact)
-      expect(contact.contact_id).to match(/^\d+$/)
-      expect(contact.warnings).to be_empty
-    end
-
-    it 'creates multiple contacts' do
-      fields_multiple = (1..3).map do |i|
-        contact_attributes.dup.merge(email: "#{i}@dummy.com")
-      end
-      response = test_folder.contacts.create(fields_multiple)
-      expect(response.warnings).to be_empty
-      contact = response.last
-      expect(contact).to be_kind_of(Pocus::Contact)
-      expect(contact.contact_id).to match(/^\d+$/)
-    end
-
-    it 'handles errors' do
-      fields_multiple = [1,'',2].map do |i|
-        contact_attributes.dup.merge(email: "#{i}@dummy.com")
-      end
-      response = test_folder.contacts.create(fields_multiple)
-      expect(response.warnings.count).to be > 1
-      contact = response.first
-      expect(contact).to be_kind_of(Pocus::Contact)
-      expect(contact.contact_id).to match(/^\d+$/)
-    end
-  end
-
-  describe '#custom_fields.create' do
-    it 'creates custom fields' do
-      birthdate_fields = {
-        custom_field_id: :birthdate,
-        field_type: :date,
-        display_to_user: 1,
-      }
-      custom_field = test_folder.customfields.create(birthdate_fields)
-      expect(custom_field).to be_a(Pocus::CustomField)
-      expect(custom_field.errors).to be_empty
-      expect(custom_field.warnings).to be_empty
-    end
-  end
-
-  describe '#subscriptions.create' do
-    it 'creates multiple subscriptions' do
-      fields_multiple = (1..3).map do |i|
-        contact_attributes.dup.merge(email: "#{rand(10**6)}@dummy.com")
-      end
-      contacts = test_folder.contacts.create(fields_multiple)
-      subscription_fields = contacts.map do |contact|
-        Hash[contact_id: contact.id, list_id: test_list.id, status: :normal]
-      end
-      subscriptions = test_folder.subscriptions.create(subscription_fields)
-      expect(subscriptions.size).to eq 3
-
-      subscription = subscriptions.first
-      expect(subscription).to be_a(Pocus::Subscription)
-      expect(subscription.subscription_id).to match(/^\d+_\d+$/)
-    end
-  end
-
-  describe '#users.all' do
-    it 'fetches users' do
-      users = test_folder.users.all
-      expect(users.first).to be_kind_of(Pocus::User)
-      expect(users.first.id).to be_a(Integer)
     end
   end
 end
