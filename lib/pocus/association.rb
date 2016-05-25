@@ -13,9 +13,15 @@ module Pocus
     end
 
     def create(fields_multiple)
-      fields_multiple.kind_of?(Array) ?
-        owner.post_multiple(path, klass, fields_multiple) :
-        owner.post_multiple(path, klass, [fields_multiple]).first
+      if fields_multiple.kind_of?(Array)
+        owner.post_multiple(path, klass, fields_multiple)
+      else
+        response = owner.post_multiple(path, klass, [fields_multiple])
+        return response if response.empty?
+        resource = response.first
+        resource.assign_attributes(errors: response.errors || [], warnings: response.warnings || [])
+        resource
+      end
     end
 
     def find(id)

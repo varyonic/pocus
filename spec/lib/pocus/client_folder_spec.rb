@@ -88,6 +88,13 @@ RSpec.describe Pocus::ClientFolder do
   end
 
   describe '#contacts.create' do
+    it 'creates a single contact' do
+      contact = test_folder.contacts.create(email: 'single@dummy.com')
+      expect(contact).to be_kind_of(Pocus::Contact)
+      expect(contact.contact_id).to match(/^\d+$/)
+      expect(contact.warnings).to be_empty
+    end
+
     it 'creates multiple contacts' do
       fields_multiple = (1..3).map do |i|
         contact_attributes.dup.merge(email: "#{i}@dummy.com")
