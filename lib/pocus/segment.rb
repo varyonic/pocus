@@ -3,5 +3,7 @@ module Pocus
   class Segment < Resource
     self.path = :segments
     self.primary_key = :segment_id
+
+    has_many :criteria, class: 'SegmentCriteria'
   end
 end
