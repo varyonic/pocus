@@ -19,4 +19,15 @@ RSpec.describe Pocus::Contact do
       expect(contact.id).to match(/^\d+$/)
     end
   end
+
+  describe '#delete' do
+    it 'deletes a contact' do
+      contact = test_folder.contacts.create(email: 'delete.me@example.com')
+      expect(contact.destroy).to be true
+      expect do
+        contact.reload
+      end
+      .to raise_error(/404/)
+    end
+  end
 end

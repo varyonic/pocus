@@ -48,6 +48,11 @@ module Pocus
       end
     end
 
+    def delete
+      session.send_request('DELETE', path) == []
+    end
+    alias_method :destroy, :delete
+
     def fields
       field_names.reduce(Hash[]) do |hash, field_name|
         hash.tap { |h| h[camelize field_name] = send field_name }
