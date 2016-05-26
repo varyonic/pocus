@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "spec_helper"
+require 'spec_helper'
 
 include Pocus::Fixtures
 
@@ -8,7 +8,7 @@ RSpec.describe Pocus::Subscription do
   Pocus::Session.config(fixtures(:credentials))
   Pocus::Session.instance.logger = Logger.new(STDOUT) if ENV['POCUS_DEBUG']
   let(:account) { Pocus::Account.new(account_id: fixtures(:account_id)) }
-  let(:test_folder) { account.clientfolders.find(fixtures(:test_client_folder_id)) }# frozen_string_literal: true
+  let(:test_folder) { account.clientfolders.find(fixtures(:test_client_folder_id)) } # frozen_string_literal: true
   let(:test_list) { test_folder.lists.where(name: 'My First List').first }
   let(:contact_attributes) do
     {
@@ -29,7 +29,7 @@ RSpec.describe Pocus::Subscription do
 
   describe '#subscriptions.create' do
     it 'creates multiple subscriptions' do
-      fields_multiple = (1..3).map do |i|
+      fields_multiple = (1..3).map do |_i|
         contact_attributes.dup.merge(email: "#{rand(10**6)}@dummy.com")
       end
       contacts = test_folder.contacts.create(fields_multiple)

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "spec_helper"
+require 'spec_helper'
 
 include Pocus::Fixtures
 
@@ -21,13 +21,13 @@ RSpec.describe Pocus::Account do
       state: 'NC',
       postal_code: '27713',
       country: 'USA',
-      phone: '8668039462',
+      phone: '8668039462'
     }
   end
 
   describe '.associations' do
     it 'stores configuration options' do
-      expect(Pocus::Account.associations).to eq Hash[clientfolders: { path: '/c', class: 'ClientFolder'} ]
+      expect(Pocus::Account.associations).to eq Hash[clientfolders: {path: '/c', class: 'ClientFolder'}]
       expect(Pocus::Account.new({}).clientfolders).to be_kind_of(Pocus::Association)
     end
   end
@@ -57,7 +57,7 @@ RSpec.describe Pocus::Account do
       expect do
         account.clientfolders.find(0).inspect
       end
-      .to raise_error(/Unexpected response/)
+        .to raise_error(/Unexpected response/)
     end
   end
 

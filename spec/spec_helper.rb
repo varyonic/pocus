@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 
-require "bundler/setup"
+require 'bundler/setup'
 
-if ENV["CI"]
-  require "codeclimate-test-reporter"
+if ENV['CI']
+  require 'codeclimate-test-reporter'
   CodeClimate::TestReporter.start
 end
 
-require "pocus"
+require 'pocus'
 
-Dir[File.join(File.dirname(__FILE__), "support/extensions/**/*.rb")].each { |file| require file }
-Dir[File.join(File.dirname(__FILE__), "support/kit/**/*.rb")].each { |file| require file }
+Dir[File.join(File.dirname(__FILE__), 'support/extensions/**/*.rb')].each { |file| require file }
+Dir[File.join(File.dirname(__FILE__), 'support/kit/**/*.rb')].each { |file| require file }
 
 module Pocus
   module Fixtures
@@ -22,7 +22,7 @@ module Pocus
     end
 
     def fixtures(key)
-      data = all_fixtures[key] || raise(StandardError, "No fixture data was found for '#{key}'")
+      data = all_fixtures[key] || fail(StandardError, "No fixture data was found for '#{key}'")
       data.dup
     end
 
@@ -38,7 +38,7 @@ module Pocus
 
     def symbolize_keys(hash)
       return hash unless hash.is_a?(Hash)
-      hash.each_with_object({}){|(k,v), h| h[k.to_sym] = symbolize_keys(v)}
+      hash.each_with_object({}) { |(k, v), h| h[k.to_sym] = symbolize_keys(v) }
     end
   end
 end

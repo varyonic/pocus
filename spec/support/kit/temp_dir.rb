@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
-require "rspec/core/shared_context"
+require 'rspec/core/shared_context'
 
 module RSpec
   module Kit
     # Adds temp directory support to specs enabled with the :temp_dir metadata key.
     module TempDirContext
       extend RSpec::Core::SharedContext
-      let(:temp_dir) { File.expand_path "../../../../tmp/rspec", __FILE__ }
+      let(:temp_dir) { File.expand_path '../../../../tmp/rspec', __FILE__ }
     end
   end
 end

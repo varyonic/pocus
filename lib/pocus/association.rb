@@ -5,7 +5,7 @@ module Pocus
     def initialize(owner, name, options)
       @owner = owner
       @path = options[:path] || "/#{name}"
-      @klass = Object.const_get("Pocus::".concat(options[:class] || camelize(name)))
+      @klass = Object.const_get('Pocus::'.concat(options[:class] || camelize(name)))
     end
 
     def all
@@ -13,7 +13,7 @@ module Pocus
     end
 
     def create(fields_multiple)
-      if fields_multiple.kind_of?(Array)
+      if fields_multiple.is_a?(Array)
         owner.post_multiple(path, klass, fields_multiple)
       else
         response = owner.post_multiple(path, klass, [fields_multiple])

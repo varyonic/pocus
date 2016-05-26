@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "spec_helper"
+require 'spec_helper'
 
 include Pocus::Fixtures
 
@@ -15,7 +15,7 @@ RSpec.describe Pocus::CustomField do
       birthdate_fields = {
         custom_field_id: :birthdate,
         field_type: :date,
-        display_to_user: 1,
+        display_to_user: 1
       }
       custom_field = test_folder.customfields.create(birthdate_fields)
       expect(custom_field).to be_a(Pocus::CustomField)

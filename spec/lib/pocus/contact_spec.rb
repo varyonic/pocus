@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "spec_helper"
+require 'spec_helper'
 
 include Pocus::Fixtures
 
@@ -46,7 +46,7 @@ RSpec.describe Pocus::Contact do
     end
 
     it 'handles errors' do
-      fields_multiple = [1,'',2].map do |i|
+      fields_multiple = [1, '', 2].map do |i|
         contact_attributes.dup.merge(email: "#{i}@dummy.com")
       end
       response = test_folder.contacts.create(fields_multiple)
@@ -74,7 +74,7 @@ RSpec.describe Pocus::Contact do
       expect do
         contact.reload
       end
-      .to raise_error(/404/)
+        .to raise_error(/404/)
     end
   end
 end

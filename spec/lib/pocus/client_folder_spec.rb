@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "spec_helper"
+require 'spec_helper'
 
 include Pocus::Fixtures
 
@@ -21,7 +21,7 @@ RSpec.describe Pocus::ClientFolder do
       state: 'NC',
       postal_code: '27713',
       country: 'USA',
-      phone: '8668039462',
+      phone: '8668039462'
     }
   end
   let(:test_list) { test_folder.lists.where(name: 'My First List').first }
