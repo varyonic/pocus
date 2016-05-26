@@ -55,6 +55,16 @@ Add the following to your Gemfile:
 
 # Tests
 
+To run the tests you will need your own iContact account with a test folder.  Populate ~/.pocus/fixtures.yml as follows:
+
+```
+	credentials:
+	  app_id: ...
+	  username: ...
+	  password: ...
+	account_id: ...
+	test_client_folder_id: ...
+```
 To test, run:
 
     bundle exec rake
