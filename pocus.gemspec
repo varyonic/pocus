@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.authors = ['Piers Chambers']
   spec.email = ['piers@varyonic.com']
   spec.homepage = 'https://github.com//pocus'
-  spec.summary = ''
-  spec.description = ''
+  spec.summary = 'Unofficial Ruby client for iContact API'
+  spec.description = 'Unofficial Ruby client for iContact API'
   spec.license = 'MIT'
 
   if ENV['RUBY_GEM_SECURITY'] == 'enabled'

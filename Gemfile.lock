@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    pocus (0.1.0)
+    pocus (0.5.0)
 
 GEM
   remote: https://rubygems.org/
