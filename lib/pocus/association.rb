@@ -9,7 +9,7 @@ module Pocus
     end
 
     def all
-      owner.get_multiple(path, klass)
+      @all ||= owner.get_multiple(path, klass)
     end
 
     def create(fields_multiple)
