@@ -1,10 +1,12 @@
 # Pocus
 
 [![Gem Version](https://badge.fury.io/rb/pocus.svg)](http://badge.fury.io/rb/pocus)
-[![Code Climate GPA](https://codeclimate.com/github//pocus.svg)](https://codeclimate.com/github//pocus)
-[![Code Climate Coverage](https://codeclimate.com/github//pocus/coverage.svg)](https://codeclimate.com/github//pocus)
-[![Gemnasium Status](https://gemnasium.com//pocus.svg)](https://gemnasium.com//pocus)
-[![Travis CI Status](https://secure.travis-ci.org//pocus.svg)](https://travis-ci.org//pocus)
+[![Code Climate GPA](https://codeclimate.com/github/varyonic/pocus.svg)](https://codeclimate.com/github/varyonic/pocus)
+[![Code Climate Coverage](https://codeclimate.com/github/varyonic/pocus/coverage.svg)](https://codeclimate.com/github/varyonic/pocus)
+[![Gemnasium Status](https://gemnasium.com/varyonic/pocus.svg)](https://gemnasium.com/varyonic/pocus)
+[![Travis CI Status](https://secure.travis-ci.org/varyonic/pocus.svg)](https://travis-ci.org/varyonic/pocus)
+
+Unofficial Ruby API client for [iContact API](See https://www.icontact.com/developerportal) (f.k.a. Vocus), inspired by Active Resource.
 
 <!-- Tocer[start]: Auto-generated, don't remove. -->
 
@@ -25,8 +27,6 @@
 <!-- Tocer[finish]: Auto-generated, don't remove. -->
 
 # Features
-
-Unofficial Ruby API client for [iContact API](See https://www.icontact.com/developerportal), fka. Vocus
 
 # Requirements
 
@@ -51,6 +51,16 @@ Add the following to your Gemfile:
     gem "pocus"
 
 # Usage
+
+Example:
+
+```
+	Pocus::Session.config(credentials)
+	Pocus::Session.instance.logger = Rails.logger
+	account = Pocus::Account.new(account_id: account_id)
+	folder = acount.clientfolders.find(folder_id)
+	folder.contacts.create(contacts_data)
+```
 
 # Tests
 
@@ -97,4 +107,4 @@ Built with [Gemsmith](https://github.com/bkuhlmann/gemsmith).
 
 # Credits
 
-Developed by [Piers Chambers](https://www.varyonic.com) at [Varyonic](https://www.varyonic.com).
+Developed by [Piers Chambers](http://varyonic.github.io/) at [Varyonic](https://www.varyonic.com).
