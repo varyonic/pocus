@@ -67,7 +67,7 @@ module Pocus
     end
 
     def log_request_response(uri, method, data)
-      logger.info "request = #{uri}#{data ? '?' + data : ''}"
+      logger.info "request = #{method} #{uri}#{data ? '?' + data : ''}"
       response = nil
       tms = Benchmark.measure do
         response = yield uri, method, data
