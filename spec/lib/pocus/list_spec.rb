@@ -21,6 +21,14 @@ RSpec.describe Pocus::List do
   end
 
   describe 'lists.where' do
+    before do
+      @lists = test_folder.lists.create(name: "Random list #{rand(10**6)}")
+    end
+
+    after do
+      Array(@lists).each(&:delete)
+    end
+
     it 'fetches filtered lists' do
       response = test_folder.lists.where(name: 'My First List')
       expect(response.count).to eq 1
