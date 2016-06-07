@@ -12,7 +12,7 @@ module Pocus
     end
 
     def self.version
-      '0.5.1'
+      '0.5.2'
     end
 
     def self.version_label
