@@ -38,6 +38,11 @@ RSpec.describe Pocus::List do
       expect(list.list_id).to match(/^\d+$/)
     end
 
+    it 'returns empty set if no match' do
+      response = test_folder.lists.where(name: 'non-existant')
+      expect(response.count).to eq 0
+    end
+
     it 'handles errors' do
       Pocus::Session.instance.logger = Logger.new(STDOUT)
       response = test_folder.lists.where(invalid_key: 'My First List')

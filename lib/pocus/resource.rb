@@ -74,7 +74,7 @@ module Pocus
     def get_multiple(request_path, klass, filters = {})
       request_data = URI.encode_www_form(camelize_fields filters)
       response = session.send_request('GET', path + request_path + '?' + request_data)
-      data = response.fetch(klass.tag_multiple)
+      data = response.fetch(klass.tag_multiple) || []
       resources = data.map { |fields| klass.new(fields.merge(parent: self)) }
       ResponseArray.new(resources, response['errors'], response['warnings'])
     end
