@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
   spec.platform = Gem::Platform::RUBY
   spec.authors = ['Piers Chambers']
   spec.email = ['piers@varyonic.com']
-  spec.homepage = 'https://github.com//pocus'
+  spec.homepage = 'https://github.com/varyonic/pocus'
   spec.summary = 'Unofficial Ruby client for iContact API'
   spec.description = 'Unofficial Ruby client for iContact API'
   spec.license = 'MIT'
