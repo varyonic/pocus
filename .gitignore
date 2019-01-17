@@ -1,5 +1,7 @@
 *.gem
 .bundle
 .rspec
+.ruby-version
+Gemfile.lock
 pkg/*
 tmp/*
