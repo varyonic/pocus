@@ -1,6 +1,7 @@
 language: ruby
 rvm:
-  - 2.3.0
+  - 2.3
+  - 2.6
 script: bundle exec rake
 notifications:
   email: false

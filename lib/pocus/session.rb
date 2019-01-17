@@ -1,6 +1,8 @@
 require 'benchmark'
 require 'json'
 require 'logger'
+require 'net/http'
+require 'openssl'
 
 # See https://www.icontact.com/developerportal/documentation
 module Pocus
