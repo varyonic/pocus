@@ -3,7 +3,6 @@
 [![Gem Version](https://badge.fury.io/rb/pocus.svg)](http://badge.fury.io/rb/pocus)
 [![Code Climate GPA](https://codeclimate.com/github/varyonic/pocus.svg)](https://codeclimate.com/github/varyonic/pocus)
 [![Code Climate Coverage](https://codeclimate.com/github/varyonic/pocus/coverage.svg)](https://codeclimate.com/github/varyonic/pocus)
-[![Gemnasium Status](https://gemnasium.com/varyonic/pocus.svg)](https://gemnasium.com/varyonic/pocus)
 [![Travis CI Status](https://secure.travis-ci.org/varyonic/pocus.svg)](https://travis-ci.org/varyonic/pocus)
 
 Unofficial Ruby API client for [iContact API](See https://www.icontact.com/developerportal) (f.k.a. Vocus), inspired by Active Resource.
