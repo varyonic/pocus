@@ -122,6 +122,14 @@ module Pocus
       Session.instance
     end
 
+    def marshal_dump
+      instance_variables.each_with_object({}) { |k, h| h[k[1..-1]] = send(k[1..-1]) }
+    end
+
+    def marshal_load(attributes)
+      assign_attributes(attributes)
+    end
+
     protected
 
     def required(attributes, attr_names)
