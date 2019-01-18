@@ -62,15 +62,14 @@ Example:
 
 # Tests
 
-To run the tests you will need your own iContact account with a test folder.  Populate ~/.pocus/fixtures.yml as follows:
+To run the tests you will need your own iContact account with a test folder.  Set the following environment variables:
 
 ```
-	credentials:
-	  app_id: ...
-	  username: ...
-	  password: ...
-	account_id: ...
-	test_client_folder_id: ...
+POCUS_APP_ID=0b34...b478c
+POCUS_USERNAME=vocus_api_sandbox@....com
+POCUS_PASSWORD=...
+POCUS_TEST_ACCOUNT=99...99
+POCUS_TEST_CLIENT_FOLDER=9...9
 ```
 To test, run:
 
