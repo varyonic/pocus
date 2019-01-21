@@ -23,7 +23,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'pry-byebug'
   spec.add_development_dependency 'pry-state'
   spec.add_development_dependency 'rspec', '~> 3.4'
-  spec.add_development_dependency 'codeclimate-test-reporter'
 
   spec.files = Dir['lib/**/*', 'vendor/**/*']
   spec.extra_rdoc_files = Dir['README*', 'LICENSE*']
