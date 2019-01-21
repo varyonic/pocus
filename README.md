@@ -4,51 +4,21 @@
 [![Code Climate GPA](https://codeclimate.com/github/varyonic/pocus.svg)](https://codeclimate.com/github/varyonic/pocus)
 [![Travis CI Status](https://secure.travis-ci.org/varyonic/pocus.svg)](https://travis-ci.org/varyonic/pocus)
 
-Unofficial Ruby API client for [iContact API](See https://www.icontact.com/developerportal) (f.k.a. Vocus), inspired by Active Resource.
+Unofficial Ruby API client for [iContact API](https://www.icontact.com/developerportal) (f.k.a. Vocus), inspired by Active Resource.
 
-<!-- Tocer[start]: Auto-generated, don't remove. -->
+## Installation
 
-# Table of Contents
+Add to your application's Gemfile:
 
-- [Features](#features)
-- [Requirements](#requirements)
-- [Setup](#setup)
-- [Usage](#usage)
-- [Tests](#tests)
-- [Versioning](#versioning)
-- [Code of Conduct](#code-of-conduct)
-- [Contributions](#contributions)
-- [License](#license)
-- [History](#history)
-- [Credits](#credits)
+```ruby
+gem 'pocus'
+```
 
-<!-- Tocer[finish]: Auto-generated, don't remove. -->
+And then execute:
 
-# Features
+    $ bundle
 
-# Requirements
-
-0. [MRI 2.3.0](https://www.ruby-lang.org)
-
-# Setup
-
-For a secure install, type the following (recommended):
-
-    gem cert --add <(curl --location --silent https://www.varyonic.com/gem-public.pem)
-    gem install pocus --trust-policy MediumSecurity
-
-NOTE: A HighSecurity trust policy would be best but MediumSecurity enables signed gem verification while
-allowing the installation of unsigned dependencies since they are beyond the scope of this gem.
-
-For an insecure install, type the following (not recommended):
-
-    gem install pocus
-
-Add the following to your Gemfile:
-
-    gem "pocus"
-
-# Usage
+## Usage
 
 Example:
 
@@ -60,7 +30,7 @@ Example:
 	folder.contacts.create(contacts_data)
 ```
 
-# Tests
+## Tests
 
 To run the tests you will need your own iContact account with a test folder.  Set the following environment variables:
 
@@ -75,32 +45,18 @@ To test, run:
 
     bundle exec rake
 
-# Versioning
-
-Read [Semantic Versioning](http://semver.org) for details. Briefly, it means:
-
-- Patch (x.y.Z) - Incremented for small, backwards compatible bug fixes.
-- Minor (x.Y.z) - Incremented for new, backwards compatible public API enhancements and/or bug fixes.
-- Major (X.y.z) - Incremented for any backwards incompatible public API changes.
-
-# Code of Conduct
-
-Please note that this project is released with a [CODE OF CONDUCT](CODE_OF_CONDUCT.md). By participating in this project
-you agree to abide by its terms.
-
-# Contributions
+## Contributions
 
 Read [CONTRIBUTING](CONTRIBUTING.md) for details.
 
-# License
-
-Copyright (c) 2016 [Varyonic](https://www.varyonic.com).
-Read the [LICENSE](LICENSE.md) for details.
-
-# History
+## History
 
 Read the [CHANGELOG](CHANGELOG.md) for details.
 
-# Credits
+## License
 
-Developed by [Piers Chambers](http://varyonic.github.io/) at [Varyonic](https://www.varyonic.com).
+The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+
+Read the [LICENSE](LICENSE.md) for details.
+
+Copyright (c) 2016-2019 [Varyonic](https://www.varyonic.com).
