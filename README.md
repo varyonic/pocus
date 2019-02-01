@@ -18,21 +18,32 @@ And then execute:
 
     $ bundle
 
+## Requirements
+
+iContact account, AppID and credentials, see the [iContact API Getting Started Guide](https://www.icontact.com/developerportal/documentation/start-building).
+
 ## Usage
 
-Example:
+Configure a connection and connect to the account:
 
-```
+```ruby
 	Pocus::Session.config(credentials)
 	Pocus::Session.instance.logger = Rails.logger
 	account = Pocus::Account.new(account_id: account_id)
+```
+
+Navigate and update entities:
+
+```ruby
 	folder = acount.clientfolders.find(folder_id)
 	folder.contacts.create(contacts_data)
 ```
 
+See the specs for sample code.
+
 ## Tests
 
-To run the tests you will need your own iContact account with a test folder.  Set the following environment variables:
+To run the tests you will need your own iContact account with a test folder (name: 'My First List').  Set the following environment variables:
 
 ```
 POCUS_APP_ID=0b34...b478c
