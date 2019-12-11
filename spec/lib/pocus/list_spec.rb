@@ -5,9 +5,9 @@ require 'spec_helper'
 include Pocus::Fixtures
 
 RSpec.describe Pocus::List do
-  Pocus::Session.config(fixtures(:credentials))
-  Pocus::Session.instance.logger = Logger.new(STDOUT) if ENV['POCUS_DEBUG']
-  let(:account) { Pocus::Account.new(account_id: fixtures(:account_id)) }
+  let(:session) { Pocus::Session.new(fixtures :credentials) }
+  before { session.logger = Logger.new(STDOUT) if ENV['POCUS_DEBUG'] }
+  let(:account) { Pocus::Account.new(session: session, account_id: fixtures(:account_id)) }
   let(:test_folder) { account.clientfolders.find(fixtures(:test_client_folder_id)) }
 
   describe 'lists.all' do
@@ -44,7 +44,7 @@ RSpec.describe Pocus::List do
     end
 
     it 'handles errors' do
-      Pocus::Session.instance.logger = Logger.new(STDOUT)
+      session.logger = Logger.new(STDOUT)
       response = test_folder.lists.where(invalid_key: 'My First List')
       pending 'API bug, does not always include warning!'
       expect(response.warnings.count).to be > 1

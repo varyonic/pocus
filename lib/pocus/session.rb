@@ -29,14 +29,6 @@ module Pocus
       @logger = logger
     end
 
-    def self.config(options = {})
-      @config = options
-    end
-
-    def self.instance
-      @instance ||= new(@config)
-    end
-
     # Accepts hash of fields to send.
     # Returns parsed response body, always a hash.
     def send_request(method, path, fields = {})

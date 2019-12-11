@@ -119,7 +119,7 @@ module Pocus
     end
 
     def session
-      Session.instance
+      parent.session
     end
 
     def marshal_dump

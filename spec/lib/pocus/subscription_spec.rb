@@ -5,9 +5,9 @@ require 'spec_helper'
 include Pocus::Fixtures
 
 RSpec.describe Pocus::Subscription do
-  Pocus::Session.config(fixtures(:credentials))
-  Pocus::Session.instance.logger = Logger.new(STDOUT) if ENV['POCUS_DEBUG']
-  let(:account) { Pocus::Account.new(account_id: fixtures(:account_id)) }
+  let(:session) { Pocus::Session.new(fixtures :credentials) }
+  before { session.logger = Logger.new(STDOUT) if ENV['POCUS_DEBUG'] }
+  let(:account) { Pocus::Account.new(session: session, account_id: fixtures(:account_id)) }
   let(:test_folder) { account.clientfolders.find(fixtures(:test_client_folder_id)) } # frozen_string_literal: true
   let(:test_list) { test_folder.lists.find_or_create_by(name: 'My First List') }
   let(:contact_attributes) do
