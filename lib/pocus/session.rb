@@ -69,13 +69,17 @@ module Pocus
     end
 
     def log_request_response(uri, method, data)
-      logger.info "request = #{method} #{uri}#{data ? '?' + data : ''}"
+      logger.info  "[#{self.class.name}] request = #{method} #{uri}#{data ? '?' + data : ''}"
       response = nil
       tms = Benchmark.measure do
         response = yield uri, method, data
       end
-      logger.info("API response (#{tms.real}s): #{response.inspect} #{response.body}")
+      logger.info  "[#{self.class.name}] response (#{ms(tms)}ms): #{response.inspect} #{response.body}"
       response
+    end
+
+    def ms(tms)
+      (tms.real*1000).round(3)
     end
   end
 end
