@@ -71,10 +71,11 @@ RSpec.describe Pocus::Contact do
     it 'deletes a contact' do
       contact = test_folder.contacts.create(email: 'delete.me@example.com')
       expect(contact.destroy).to be true
-      expect do
-        contact.reload
+      if session.pro?
+        expect { contact.reload }.to raise_error(/404/)
+      else
+        expect(contact.reload.status).to eq 'deleted'
       end
-        .to raise_error(/404/)
     end
   end
 end
