@@ -50,7 +50,7 @@ RSpec.describe Pocus::Contact do
         contact_attributes.dup.merge(email: "#{i}@dummy.com")
       end
       response = test_folder.contacts.create(fields_multiple)
-      expect(response.warnings.count).to be > 1
+      expect(response.warnings.count).to be >= 1
       contact = response.first
       expect(contact).to be_kind_of(Pocus::Contact)
       expect(contact.contact_id).to match(/^\d+$/)
