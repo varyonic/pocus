@@ -13,7 +13,7 @@ RSpec.describe Pocus::CustomField do
   describe '#custom_fields.create' do
     it 'creates custom fields' do
       birthdate_fields = {
-        custom_field_id: :birthdate,
+        private_name: rand.to_s,
         field_type: :date,
         display_to_user: 1
       }
@@ -21,6 +21,7 @@ RSpec.describe Pocus::CustomField do
       expect(custom_field).to be_a(Pocus::CustomField)
       expect(custom_field.errors).to be_empty
       expect(custom_field.warnings).to be_empty
+      custom_field.destroy
     end
   end
 end
