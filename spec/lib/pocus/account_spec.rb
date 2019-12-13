@@ -27,7 +27,10 @@ RSpec.describe Pocus::Account do
 
   describe '.associations' do
     it 'stores configuration options' do
-      expect(Pocus::Account.associations).to eq Hash[clientfolders: {path: '/c', class: 'ClientFolder'}]
+      expect(Pocus::Account.associations).to eq Hash[
+        clientfolders: {path: '/c', class: 'ClientFolder'},
+        users: {class: 'User'},
+      ]
       expect(Pocus::Account.new({}).clientfolders).to be_kind_of(Pocus::Association)
     end
   end

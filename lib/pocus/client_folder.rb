@@ -9,6 +9,5 @@ module Pocus
     has_many :customfields, class: 'CustomField'
     has_many :segments, class: 'Segment'
     has_many :subscriptions, class: 'Subscription'
-    has_many :users, class: 'User'
   end
 end

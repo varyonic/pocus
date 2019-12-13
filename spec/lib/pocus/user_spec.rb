@@ -12,25 +12,25 @@ RSpec.describe Pocus::User do
 
   describe '#users.all' do
     it 'fetches users' do
-      users = test_folder.users.all
+      users = account.users.all
       expect(users.first).to be_kind_of(Pocus::User)
-      expect(users.first.id).to be_a(Integer)
+      expect(users.first.id.to_i).to be_a(Integer)
     end
   end
 
   describe '#reload' do
     it 'fetches user details' do
-      users = test_folder.users.all
+      users = account.users.all
       user = users.sample
 
       user.reload
-      expect(user.id).to be_a(Integer)
+      expect(user.id.to_i).to be_a(Integer)
     end
   end
 
   describe '#permissions.all' do
     it 'fetches permissions' do
-      permissions = test_folder.users.all.sample.permissions.all
+      permissions = account.users.all.sample.permissions.all
       expect(permissions.first).to be_kind_of(Pocus::Permission)
     end
   end
