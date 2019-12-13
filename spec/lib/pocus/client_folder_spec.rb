@@ -15,7 +15,6 @@ RSpec.describe Pocus::ClientFolder do
       from_name: 'John Smith',
       from_last_name: 'Smith',
       from_email: 'smith@icontact.com',
-      business_name: 'Example Corp',
       street: '2635 Meridian Parkway',
       city: 'Durham',
       state: 'NC',
@@ -28,12 +27,14 @@ RSpec.describe Pocus::ClientFolder do
 
   describe '#post' do
     it 'updates a client folder' do
+      skip unless session.pro?
       new_name = rand.to_s
-      test_folder.business_name = new_name
+      test_folder.from_name = new_name
 
       response = test_folder.post
+      expect(response.errors).to be_empty
       expect(response.warnings).to be_empty
-      expect(response.business_name).to eq new_name
+      expect(response.from_name).to eq new_name
     end
 
     it 'handles errors' do
