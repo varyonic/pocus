@@ -28,6 +28,10 @@ module Pocus
       owner.get("#{path}/#{id}", klass)
     end
 
+    def find_or_create_by(attributes)
+      where(attributes).first || create(attributes)
+    end
+
     def where(filters)
       owner.get_multiple(path, klass, filters)
     end
