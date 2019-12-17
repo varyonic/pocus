@@ -5,9 +5,9 @@ require 'spec_helper'
 include Pocus::Fixtures
 
 RSpec.describe Pocus::Contact do
-  Pocus::Session.config(fixtures(:credentials))
-  Pocus::Session.instance.logger = Logger.new(STDOUT) if ENV['POCUS_DEBUG']
-  let(:account) { Pocus::Account.new(account_id: fixtures(:account_id)) }
+  let(:session) { Pocus::Session.new(fixtures :credentials) }
+  before { session.logger = Logger.new(STDOUT) if ENV['POCUS_DEBUG'] }
+  let(:account) { Pocus::Account.new(session: session, account_id: fixtures(:account_id)) }
   let(:test_folder) { account.clientfolders.find(fixtures(:test_client_folder_id)) }
   let(:contact_attributes) do
     {
@@ -71,10 +71,11 @@ RSpec.describe Pocus::Contact do
     it 'deletes a contact' do
       contact = test_folder.contacts.create(email: 'delete.me@example.com')
       expect(contact.destroy).to be true
-      expect do
-        contact.reload
+      if session.pro?
+        expect { contact.reload }.to raise_error(/404/)
+      else
+        expect(contact.reload.status).to eq 'deleted'
       end
-        .to raise_error(/404/)
     end
   end
 end

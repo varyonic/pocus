@@ -16,11 +16,12 @@ module Pocus
 
   # Sends authenticated JSON requests to remote service using HTTPS.
   class Session
-    BASE_URL = 'https://api.invoc.us/icp'.freeze
+    attr_reader :base_url
     attr_reader :credentials
     attr_accessor :logger
 
-    def initialize(app_id: '', username: '', password: '', logger: Logger.new('/dev/null'))
+    def initialize(host: 'api.invoc.us', app_id:, username:, password:, logger: Logger.new('/dev/null'))
+      @base_url = "https://#{host}/icp".freeze
       @credentials = {
         'API-AppId'    => app_id,
         'API-Username' => username,
@@ -29,18 +30,15 @@ module Pocus
       @logger = logger
     end
 
-    def self.config(options = {})
-      @config = options
-    end
-
-    def self.instance
-      @instance ||= new(@config)
+    # 'Pro' is legacy as moniker dropped.
+    def pro?
+      base_url =~ /invoc.us/
     end
 
     # Accepts hash of fields to send.
     # Returns parsed response body, always a hash.
     def send_request(method, path, fields = {})
-      response = send_logged_request(URI(BASE_URL + path), method, request_data(fields))
+      response = send_logged_request(URI(base_url + path), method, request_data(fields))
       fail UnexpectedHttpResponse, response unless response.is_a? Net::HTTPSuccess
       JSON.parse(response.body)
     end

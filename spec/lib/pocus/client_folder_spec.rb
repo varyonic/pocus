@@ -5,9 +5,9 @@ require 'spec_helper'
 include Pocus::Fixtures
 
 RSpec.describe Pocus::ClientFolder do
-  Pocus::Session.config(fixtures(:credentials))
-  Pocus::Session.instance.logger = Logger.new(STDOUT) if ENV['POCUS_DEBUG']
-  let(:account) { Pocus::Account.new(account_id: fixtures(:account_id)) }
+  let(:session) { Pocus::Session.new(fixtures :credentials) }
+  before { session.logger = Logger.new(STDOUT) if ENV['POCUS_DEBUG'] }
+  let(:account) { Pocus::Account.new(session: session, account_id: fixtures(:account_id)) }
   let(:test_folder) { account.clientfolders.find(fixtures(:test_client_folder_id)) }
   let(:folder_attributes) do
     {
@@ -15,7 +15,6 @@ RSpec.describe Pocus::ClientFolder do
       from_name: 'John Smith',
       from_last_name: 'Smith',
       from_email: 'smith@icontact.com',
-      business_name: 'Example Corp',
       street: '2635 Meridian Parkway',
       city: 'Durham',
       state: 'NC',
@@ -28,12 +27,14 @@ RSpec.describe Pocus::ClientFolder do
 
   describe '#post' do
     it 'updates a client folder' do
-      new_name = rand.to_s
-      test_folder.business_name = new_name
+      skip unless session.pro?
+      new_name = random_name(12)
+      test_folder.from_name = new_name
 
       response = test_folder.post
+      expect(response.errors).to be_empty
       expect(response.warnings).to be_empty
-      expect(response.business_name).to eq new_name
+      expect(response.from_name).to eq new_name
     end
 
     it 'handles errors' do

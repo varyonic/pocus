@@ -27,9 +27,10 @@ iContact account, AppID and credentials, see the [iContact API Getting Started G
 Configure a connection and connect to the account:
 
 ```ruby
-	Pocus::Session.config(credentials)
-	Pocus::Session.instance.logger = Rails.logger
-	account = Pocus::Account.new(account_id: account_id)
+    credentials = { host: 'app.icontact.com', app_id: a, username: u, password: p }
+    session = Pocus::Session.new(credentials)
+    session.logger = Rails.logger
+	account = Pocus::Account.new(session: session, account_id: account_id)
 ```
 
 Navigate and update entities:
