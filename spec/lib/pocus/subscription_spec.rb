@@ -30,7 +30,7 @@ RSpec.describe Pocus::Subscription do
   describe '#subscriptions.create' do
     it 'creates multiple subscriptions' do
       fields_multiple = (1..3).map do |_i|
-        contact_attributes.dup.merge(email: "#{rand(10**6)}@dummy.com")
+        contact_attributes.dup.merge(email: "#{random_name(8)}@dummy.com")
       end
       contacts = test_folder.contacts.create(fields_multiple)
       subscription_fields = contacts.map do |contact|

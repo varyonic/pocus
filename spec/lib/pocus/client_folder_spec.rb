@@ -28,7 +28,7 @@ RSpec.describe Pocus::ClientFolder do
   describe '#post' do
     it 'updates a client folder' do
       skip unless session.pro?
-      new_name = rand.to_s
+      new_name = random_name(12)
       test_folder.from_name = new_name
 
       response = test_folder.post

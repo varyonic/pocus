@@ -27,5 +27,10 @@ module Pocus
         ENV.fetch('POCUS_TEST_CLIENT_FOLDER')
       end
     end
+
+    def random_name(length)
+      charset = Array('A'..'Z') + Array('a'..'z')
+      Array.new(length) { charset.sample }.join
+    end
   end
 end

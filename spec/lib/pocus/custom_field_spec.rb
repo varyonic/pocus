@@ -13,7 +13,7 @@ RSpec.describe Pocus::CustomField do
   describe '#custom_fields.create' do
     it 'creates custom fields' do
       birthdate_fields = {
-        private_name: rand.to_s,
+        private_name: random_name(12),
         field_type: :date,
         display_to_user: 1
       }

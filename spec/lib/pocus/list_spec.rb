@@ -22,7 +22,7 @@ RSpec.describe Pocus::List do
 
   describe 'lists.where' do
     before do
-      @lists = test_folder.lists.create(name: "Random list #{rand(10**6)}")
+      @lists = test_folder.lists.create(name: "Random list #{random_name(12)}")
     end
 
     after do
