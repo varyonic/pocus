@@ -9,13 +9,14 @@ RSpec.describe Pocus::Segment do
   Pocus::Session.instance.logger = Logger.new(STDOUT) if ENV['POCUS_DEBUG']
   let(:account) { Pocus::Account.new(account_id: fixtures(:account_id)) }
   let(:test_folder) { account.clientfolders.find(fixtures(:test_client_folder_id)) }
+  let(:list) { test_folder.lists.find_or_create_by(name: 'My First List') }
 
   describe '#segments.create' do
-    it 'creates segments' do
-      list = test_folder.lists.where(name: 'My First List').first
+    it 'creates and deletes segments' do
       segment = test_folder.segments.create(name: 'Contacts in North Carolina', list_id: list.id)
       expect(segment).to be_kind_of(Pocus::Segment)
       expect(segment.id).to match(/^\d+$/)
+      expect(segment.destroy).to be true
     end
   end
 end
