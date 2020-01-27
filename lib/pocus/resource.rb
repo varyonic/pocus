@@ -5,7 +5,7 @@ module Pocus
 
     def initialize(resources, errors, warnings)
       @errors = (errors || [])
-      @warnings = (warnings || [])
+      @warnings = (warnings.reject { |w| w =~ /Your account is past due/ } || [])
       super resources
     end
   end
@@ -165,7 +165,7 @@ module Pocus
     end
 
     def assign_errors(response)
-      assign_attributes(errors: response['errors'] || [], warnings: response['warnings'] || [])
+      assign_attributes(errors: response['errors'] || [], warnings: response['warnings'].reject { |w| w =~ /Your account is past due/ } || [])
     end
 
     def underscore(camel_cased_word)
