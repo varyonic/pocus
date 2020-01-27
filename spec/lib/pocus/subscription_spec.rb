@@ -42,6 +42,10 @@ RSpec.describe Pocus::Subscription do
       subscription = subscriptions.first
       expect(subscription).to be_a(Pocus::Subscription)
       expect(subscription.subscription_id).to match(/^\d+_\d+$/)
+
+      # re-submission ignored
+      subscriptions = test_folder.subscriptions.create(subscription_fields)
+      expect(subscriptions.size).to eq 0
     end
   end
 
