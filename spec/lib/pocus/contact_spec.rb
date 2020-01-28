@@ -12,7 +12,7 @@ RSpec.describe Pocus::Contact do
   let(:contact_attributes) do
     {
       prefix: 'Miss',
-      first_name: 'Mary',
+      first_name: 'María',
       last_name: 'Smith',
       suffix: 'III',
       street: '2635 Meridian Parkway',
@@ -43,6 +43,7 @@ RSpec.describe Pocus::Contact do
       contact = response.last
       expect(contact).to be_kind_of(Pocus::Contact)
       expect(contact.contact_id).to match(/^\d+$/)
+      expect(contact.first_name).to eq 'María'
     end
 
     it 'handles errors' do
