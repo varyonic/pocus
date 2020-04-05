@@ -17,7 +17,7 @@ Gem::Specification.new do |spec|
     spec.cert_chain = [File.expand_path('~/.ssh/gem-public.pem')]
   end
 
-  spec.add_development_dependency 'rake', '~> 11.0'
+  spec.add_development_dependency 'rake'
   spec.add_development_dependency 'pry'
   spec.add_development_dependency 'pry-state'
   spec.add_development_dependency 'rspec', '~> 3.4'
