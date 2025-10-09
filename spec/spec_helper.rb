@@ -16,7 +16,7 @@ module Pocus
       case key
       when :credentials
         {
-          host: ENV.fetch('POCUS_HOSTNAME', 'api.invoc.us'),
+          host: ENV.fetch('POCUS_HOSTNAME', 'app.icontact.com'),
           app_id: ENV.fetch('POCUS_APP_ID'),
           username: ENV.fetch('POCUS_USERNAME'),
           password: ENV.fetch('POCUS_PASSWORD')
