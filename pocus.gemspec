@@ -18,8 +18,6 @@ Gem::Specification.new do |spec|
   end
 
   spec.add_development_dependency 'rake'
-  spec.add_development_dependency 'pry'
-  spec.add_development_dependency 'pry-state'
   spec.add_development_dependency 'rspec', '~> 3.4'
 
   spec.files = Dir['lib/**/*', 'vendor/**/*']
