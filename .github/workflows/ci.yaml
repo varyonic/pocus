@@ -1,0 +1,30 @@
+---
+
+name: ci
+
+on: [push]
+
+jobs:
+  test:
+
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        ruby-version: ['3.0', '3.3']
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: ${{ matrix.ruby-version }}
+        bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+    - name: Run tests
+      env:
+        POCUS_APP_ID: ${{ secrets.POCUS_APP_ID }}
+        POCUS_USERNAME: ${{ secrets.POCUS_USERNAME }}
+        POCUS_PASSWORD: ${{ secrets.POCUS_PASSWORD }}
+        POCUS_TEST_ACCOUNT: ${{ secrets.POCUS_TEST_ACCOUNT }}
+        POCUS_TEST_CLIENT_FOLDER: ${{ secrets.POCUS_TEST_CLIENT_FOLDER }}
+
+      run: bundle exec rake
