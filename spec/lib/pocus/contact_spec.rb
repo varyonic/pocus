@@ -56,6 +56,15 @@ RSpec.describe Pocus::Contact do
       expect(contact).to be_kind_of(Pocus::Contact)
       expect(contact.contact_id).to match(/^\d+$/)
     end
+
+    it 'handles error on all contacts' do
+      fields_multiple = [''].map do |i|
+        contact_attributes.dup.merge(email: "#{i}@dummy.com")
+      end
+      response = test_folder.contacts.create(fields_multiple)
+      expect(response.warnings.count).to be >= 1
+      expect(response.first).to eq(nil)
+    end
   end
 
   describe '#reload' do
