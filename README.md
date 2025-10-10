@@ -1,8 +1,7 @@
 # Pocus
 
 [![Gem Version](https://badge.fury.io/rb/pocus.svg)](http://badge.fury.io/rb/pocus)
-[![Code Climate GPA](https://codeclimate.com/github/varyonic/pocus.svg)](https://codeclimate.com/github/varyonic/pocus)
-[![Travis CI Status](https://secure.travis-ci.org/varyonic/pocus.svg)](https://travis-ci.org/varyonic/pocus)
+[![Github Actions  ][actions_badge]][actions]
 
 Unofficial Ruby API client for [iContact API](https://www.icontact.com/developerportal) (f.k.a. Vocus), inspired by Active Resource.
 
@@ -71,4 +70,7 @@ The gem is available as open source under the terms of the [MIT License](https:/
 
 Read the [LICENSE](LICENSE.md) for details.
 
-Copyright (c) 2016-2019 [Varyonic](https://www.varyonic.com).
+Copyright (c) 2016-2025 [Varyonic](https://www.varyonic.com).
+
+[actions_badge]: https://github.com/varyonic/pocus/workflows/ci/badge.svg
+[actions]: https://github.com/varyonic/pocus/actions
