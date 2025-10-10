@@ -106,7 +106,8 @@ module Pocus
     def post_multiple(request_path, klass, fields_multiple)
       data = fields_multiple.map { |fields| camelize_fields(fields) }
       response = session.send_request('POST', path + request_path, data)
-      resources = response.fetch(klass.tag_multiple).map { |fields| klass.new(fields.merge(parent: self)) }
+      data = response.fetch(klass.tag_multiple) || []
+      resources = data.map { |fields| klass.new(fields.merge(parent: self)) }
       ResponseArray.new(resources, response['errors'], response['warnings'])
     end
 
